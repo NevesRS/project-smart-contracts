@@ -1,5 +1,4 @@
 import { ethers } from "hardhat";
-import { MeuContrato } from "../typechain-types";
 
 async function main() {
   const MeuContratoFactory = await ethers.getContractFactory("MeuContrato");
