@@ -147,7 +147,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"net_peerCount","params":[],"id":
 
 Agora nós já temos uma rede Besu funcionando, basta criar os contratos e utiliza-la.
 
-Para isso, faça o clone do seguinte repositório: [https://github.com/NevesRS/project-smart-contracts](https://github.com/NevesRS/project-smart-contracts)
+Use esse repositório para fazer a configuração dos contratos.
 
 Com os nodos ainda rodando, abra o repositório no editor de texto de preferência, e rode os seguintes comandos no terminal:
 
