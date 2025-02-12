@@ -1,5 +1,49 @@
 # Tutorial Besu
 
+## Requerimentos
+
+- Ter besu instalado e o jdk, além do npm
+- Para instalar o npm
+
+```bash
+sudo apt install nodejs npm -y
+```
+
+- Para instalar o JDK
+
+```bash
+sudo apt install openjdk-21-jdk
+```
+
+- Para instalar o Besu
+
+```bash
+curl -L -o besu-25.1.0.tar.gz https://github.com/hyperledger/besu/releases/download/25.1.0/besu-25.1.0.tar.gz
+```
+
+Extraia o arquivo compactado com
+
+```bash
+tar -xzf besu-25.1.0.tar.gz
+```
+
+É recomendável também usar o jemalloc para evitar gasto excessivo de memória
+
+```bash
+sudo apt install libjemalloc-dev
+```
+
+Adicionar o besu as variáveis de ambiente do linux, para não precisar estar no diretório sempre
+
+```bash
+Para bash:
+echo 'export PATH="$HOME/besu-25.1.0/bin:$PATH"' >> ~/.bashrc
+Para Zsh:
+echo 'export PATH="$HOME/besu-25.1.0/bin:$PATH"' >> ~/.zshrc
+```
+
+Basta reiniciar o terminal e o comando besu já estará funcionando
+
 ## 1. Configuração Inicial do Ambiente
 
 ### Preparação de Diretórios
@@ -20,47 +64,47 @@
     - JSON
         
         ```json
-            {
-            "genesis": {
-                "config": {
-                    "chainId": 1337,
-                    "berlinBlock": 0,
-                    "ibft2": {
-                        "blockperiodseconds": 2,
-                        "epochlength": 30000,
-                        "requesttimeoutseconds": 4
-                    }
-                },
-                "nonce": "0x0",
-                "timestamp": "0x58ee40ba",
-                "gasLimit": "0x47b760",
-                "difficulty": "0x1",
-                "mixHash": "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
-                "coinbase": "0x0000000000000000000000000000000000000000",
-                "alloc": {
-                    "fe3b557e8fb62b89f4916b721be55ceb828dbd73": {
-                        "privateKey": "8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63",
-                        "comment": "private key and this comment are ignored.  In a real chain, the private key should NOT be stored",
-                        "balance": "0xad78ebc5ac6200000"
-                    },
-                    "627306090abaB3A6e1400e9345bC60c78a8BEf57": {
-                        "privateKey": "c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3",
-                        "comment": "private key and this comment are ignored.  In a real chain, the private key should NOT be stored",
-                        "balance": "90000000000000000000000"
-                    },
-                    "f17f52151EbEF6C7334FAD080c5704D77216b732": {
-                        "privateKey": "ae6ae8e5ccbfb04590405997ee2d52d2b330726137b875053c36d94e974d162f",
-                        "comment": "private key and this comment are ignored.  In a real chain, the private key should NOT be stored",
-                        "balance": "90000000000000000000000"
-                    }
-                }
-            },
-            "blockchain": {
-                "nodes": {
-                    "generate": true,
-                    "count": 2
-                }
-            }
+        {
+        "genesis": {
+        "config": {
+        "chainId": 1337,
+        "berlinBlock": 0,
+        "ibft2": {
+        "blockperiodseconds": 2,
+        "epochlength": 30000,
+        "requesttimeoutseconds": 4
+        }
+        },
+        "nonce": "0x0",
+        "timestamp": "0x58ee40ba",
+        "gasLimit": "0x47b760",
+        "difficulty": "0x1",
+        "mixHash": "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
+        "coinbase": "0x0000000000000000000000000000000000000000",
+        "alloc": {
+        "fe3b557e8fb62b89f4916b721be55ceb828dbd73": {
+        "privateKey": "8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63",
+        "comment": "private key and this comment are ignored.  In a real chain, the private key should NOT be stored",
+        "balance": "0xad78ebc5ac6200000"
+        },
+        "627306090abaB3A6e1400e9345bC60c78a8BEf57": {
+        "privateKey": "c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3",
+        "comment": "private key and this comment are ignored.  In a real chain, the private key should NOT be stored",
+        "balance": "90000000000000000000000"
+        },
+        "f17f52151EbEF6C7334FAD080c5704D77216b732": {
+        "privateKey": "ae6ae8e5ccbfb04590405997ee2d52d2b330726137b875053c36d94e974d162f",
+        "comment": "private key and this comment are ignored.  In a real chain, the private key should NOT be stored",
+        "balance": "90000000000000000000000"
+        }
+        }
+        },
+        "blockchain": {
+        "nodes": {
+        "generate": true,
+        "count": 2
+        }
+        }
         }
         ```
         
@@ -104,7 +148,7 @@ besu --data-path=data --genesis-file=../genesis.json --permissions-nodes-config-
 Para iniciar o nodo 2 o comando é um pouco diferente, agora existe uma configuração de portas, não esqueça de entrar no diretório do nodo 2 :
 
 ```bash
-besu --data-path=data --genesis-file=../genesis.json --permissions-nodes-config-file-enabled --permissions-accounts-config-file-enabled --rpc-http-enabled --rpc-http-api=ADMIN,ETH,NET,PERM,IBFT --host-allowlist="*<i>" --rpc-http-cors-origins="*</i>" --p2p-port=30304 --rpc-http-port=8546 --profile=ENTERPRISE
+besu --data-path=data --genesis-file=../genesis.json --permissions-nodes-config-file-enabled --permissions-accounts-config-file-enabled --rpc-http-enabled --rpc-http-api=ADMIN,ETH,NET,PERM,IBFT --host-allowlist="*" --rpc-http-cors-origins="*" --p2p-port=30304 --rpc-http-port=8546 --profile=ENTERPRISE
 ```
 
 ### Configuração de Permissões da Rede
