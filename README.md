@@ -1,5 +1,5 @@
 # Tutorial Besu
-
+Link do youtube para ajudar caso ocorra algum problema: https://www.youtube.com/watch?v=4LcZLgy6ijM
 ## Requerimentos
 
 - Ter besu instalado e o jdk, além do npm
